@@ -4,8 +4,8 @@
 #include <arpa/inet.h>
 
 #define SIZE 1024
-#define PORT 43001
-#define IP_ADDR "192.168.18.25"
+#define PORT 8888
+#define IP_ADDR "127.0.0.1"
 
 int main(void)
 {
