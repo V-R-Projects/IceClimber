@@ -13,10 +13,10 @@ public class MainMenu extends JFrame implements GameUtils {
     {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(FRAME_WIDTH, FRAME_HEIGHT);
-        setContentPane(contentPane);
         setTitle(TITLE);
         setVisible(true);
         contentPane = new JPanel();
+        setContentPane(contentPane);
         contentPane.setLayout(null);
         contentPane.setBackground(Color.BLACK);
 
@@ -48,7 +48,7 @@ public class MainMenu extends JFrame implements GameUtils {
         play1Button.setBackground(Color.BLACK);
 		play1Button.setForeground(Color.WHITE);
 		play1Button.setFont(new Font(FONT, Font.PLAIN, FONT_SIZE));
-		play1Button.setBounds(300, 400, 200, 50);
+		play1Button.setBounds((FRAME_WIDTH/2)-(BUTTON_WIDTH/2), 400, BUTTON_WIDTH, BUTTON_HEIGHT);
         contentPane.add(play1Button);
         
         JButton play2Button = new JButton("2 PLAYERS");
@@ -64,7 +64,7 @@ public class MainMenu extends JFrame implements GameUtils {
         play2Button.setBackground(Color.BLACK);
 		play2Button.setForeground(Color.WHITE);
 		play2Button.setFont(new Font(FONT, Font.PLAIN, FONT_SIZE));
-		play2Button.setBounds(300, 475, 200, 50);
+		play2Button.setBounds((FRAME_WIDTH/2)-(BUTTON_WIDTH/2), 475, BUTTON_WIDTH, BUTTON_HEIGHT);
 		contentPane.add(play2Button);
     }
 }

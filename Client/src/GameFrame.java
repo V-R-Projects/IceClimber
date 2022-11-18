@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import org.json.simple.*;
 
 
 public class GameFrame extends JFrame implements GameUtils{
@@ -8,6 +9,7 @@ public class GameFrame extends JFrame implements GameUtils{
     private Timer timer;
     private Client client;
     private String response;
+    private JSONObject gameData;
 
     public GameFrame(Client p_client)
     {
@@ -41,16 +43,8 @@ public class GameFrame extends JFrame implements GameUtils{
 
     private void updateData()
     {
-        try{
-            client.startConnection("127.0.0.1", 43005);
-            response = client.updateData("holi");
-            client.stopConnection();
-        }
-        catch (Exception e) {
-            System.out.println("Error connecting to server");
-        }
-
-        //leer desde el json y llamar a actualizar la posicion de los jugadores
+        gameData = client.sendRequest("request data");
+        // createEnemies(gameData.get(2));
     }
     
 }
