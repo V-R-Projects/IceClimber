@@ -12,7 +12,7 @@ public class Client {
         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
     }
 
-    public String sendMessage(String msg) throws Exception {
+    public String updateData(String msg) throws Exception {
         out.println(msg);
         String resp = in.readLine();
         return resp;

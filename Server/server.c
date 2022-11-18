@@ -6,8 +6,8 @@
 
 
 #define SIZE 1024
-#define PORT 43004
-#define IP_ADDR "192.168.0.20"
+#define PORT 43005
+#define IP_ADDR "127.0.0.1"
 
 int main(void)
 {
