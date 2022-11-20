@@ -13,3 +13,5 @@ run:
 
 clean:
 	@rm $(C_OUT)
+
+	# gcc server.c requestHandler.c requestHandler.h -ljson-c -o server

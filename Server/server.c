@@ -7,14 +7,9 @@
 #include "requestHandler.h"
 
 
-#define SIZE 2048
-#define PORT 43007
-#define IP_ADDR "127.0.0.1"
-
 int main(void)
 {
 
-    json_object *jsonObject = json_object_from_file("struct.json");
 
     int server_socket, client_sock, client_size;
     struct sockaddr_in server_addr, client_addr;
@@ -76,9 +71,14 @@ int main(void)
         }
         printf("Msg from client: %s\n", client_message);
 
+        process_request(client_message);
+
+        json_object *jsonObject = json_object_from_file("struct.json");
         // Sending the string
         strcpy(server_message, json_object_to_json_string(jsonObject));
         printf("The json file: %s\n", server_message);
+
+        json_object_put(jsonObject);
 
         if(strcmp(client_message, "quit\n") == 0) strcpy(server_message, "Closing Server...");
 
