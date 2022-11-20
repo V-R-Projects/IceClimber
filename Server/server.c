@@ -4,9 +4,10 @@
 #include <arpa/inet.h>
 #include <stdlib.h>
 #include <json-c/json.h>
+#include "requestHandler.h"
 
 
-#define SIZE 1024
+#define SIZE 2048
 #define PORT 43007
 #define IP_ADDR "127.0.0.1"
 

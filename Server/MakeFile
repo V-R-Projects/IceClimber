@@ -1,0 +1,15 @@
+.PONY: build run
+
+CC=gcc
+C_OUT=server
+C_SRC=*.c
+C_FLAGS=-ljson-c 
+
+build:
+	@$(CC) -o $(C_OUT) $(C_SRC) $(C_FLAGS)
+
+run:
+	@./$(C_OUT)
+
+clean:
+	@rm $(C_OUT)
