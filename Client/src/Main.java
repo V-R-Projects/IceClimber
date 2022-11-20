@@ -1,58 +1,35 @@
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import java.io.FileReader;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 
 public class Main {
 
-    public static void main(String args[]) {
-        String jsonString = "{\n" +
-                "    \"players\":[\n" +
-                "        {\n" +
-                "            \"id\": 1,\n" +
-                "            \"position\": [0, 0],\n" +
-                "            \"attacking\": 0,\n" +
-                "            \"jumping\": 0,\n" +
-                "            \"level\": 0,\n" +
-                "            \"lifes\": 0,\n" +
-                "            \"direction\": 0\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"id\": 2,\n" +
-                "            \"position\": [0, 0],\n" +
-                "            \"attacking\": 0,\n" +
-                "            \"jumping\": 0,\n" +
-                "            \"level\": 0,\n" +
-                "            \"lifes\": 0,\n" +
-                "            \"direction\": 0\n" +
-                "        }\n" +
-                "    ],\n" +
-                "    \"enemies\": [\n" +
-                "        {\n" +
-                "            \"id\": 0,\n" +
-                "            \"position\": [0, 0],\n" +
-                "            \"status\": 0,\n" +
-                "            \"level\": 0,\n" +
-                "            \"type\": 0\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"id\": 1,\n" +
-                "            \"position\": [0, 0],\n" +
-                "            \"status\": 0,\n" +
-                "            \"level\": 0,\n" +
-                "            \"type\": 0\n" +
-                "        }\n" +
-                "    ],\n" +
-                "    \"levels\": [\n" +
-                "        {\n" +
-                "            \"id\": 0,\n" +
-                "            \"position\": [0, 0],\n" +
-                "            \"color\": 0,\n" +
-                "            \"blocks\": [2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2]\n" +
-                "        }\n" +
-                "    ]\n" +
-                "}";
-        String prueba = "quit";
+    public static void main(String[] args) {
+
         Client client = new Client();
-        JSONObject jsonResponse = client.sendRequest(prueba);
-        System.out.println(jsonResponse.toString());
+
+        try {
+            Path path = Paths.get("Client/src/resources/struct.json");
+            JSONParser parser = new JSONParser();
+            JSONObject data = (JSONObject) parser.parse(
+                    new FileReader(path.toAbsolutePath().toFile())); //path to the JSON file.
+
+            JSONArray array = (JSONArray) parser.parse(data.get("enemies").toString());
+            System.out.println(array.get(1));
+            String jsonFile = data.toJSONString();
+//            JSONObject jsonResponse = client.sendRequest("hola");
+//            System.out.println(jsonResponse.toString());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error reading the json file");
+        }
+
 //        MainMenu mainMenu = new MainMenu(client);
 
     }
