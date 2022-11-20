@@ -3,7 +3,7 @@ import org.json.simple.JSONObject;
 import java.net.*;
 import java.io.*;
 
-public class Client {
+public class Client implements GameUtils{
     private Socket clientSocket;
     private PrintWriter out;
     private BufferedReader in;
@@ -31,7 +31,7 @@ public class Client {
     public JSONObject sendRequest(String message)
     {
         try{
-            startConnection("127.0.0.1", 43005);
+            startConnection("127.0.0.1", PORT);
             String response = sendMessage(message);
             JSONresponse = JsonDecompiler.convertToJSON(response);
             stopConnection();

@@ -3,14 +3,17 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <stdlib.h>
+#include <json-c/json.h>
 
 
 #define SIZE 1024
-#define PORT 43005
+#define PORT 43007
 #define IP_ADDR "127.0.0.1"
 
 int main(void)
 {
+
+    json_object *jsonObject = json_object_from_file("struct.json");
 
     int server_socket, client_sock, client_size;
     struct sockaddr_in server_addr, client_addr;
@@ -71,8 +74,11 @@ int main(void)
             return -1;
         }
         printf("Msg from client: %s\n", client_message);
-        
-        strcpy(server_message, "This is the server's message.");
+
+        // Sending the string
+        strcpy(server_message, json_object_to_json_string(jsonObject));
+        printf("The json file: %s\n", server_message);
+
         if(strcmp(client_message, "quit\n") == 0) strcpy(server_message, "Closing Server...");
 
         // Respond to client:
@@ -86,6 +92,10 @@ int main(void)
         shutdown(client_sock, 2);
         
         if(strcmp(client_message, "quit\n") == 0) break;
+        
+        // Clean buffers:
+        memset(server_message, '\0', sizeof(server_message));
+        memset(client_message, '\0', sizeof(client_message));
     }
     // Closing the socket:
     shutdown(server_socket, 2);

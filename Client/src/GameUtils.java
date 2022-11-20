@@ -10,5 +10,6 @@ public interface GameUtils {
     int FONT_SIZE = 12;
     int BUTTON_WIDTH = 200;
     int BUTTON_HEIGHT = 50;
+    int PORT = 43007;
 
 }
