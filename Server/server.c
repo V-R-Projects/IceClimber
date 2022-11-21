@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <json-c/json.h>
 #include "requestHandler.h"
+#include "constants.h"
 
 
 int main(void)
@@ -13,11 +14,12 @@ int main(void)
 
     int server_socket, client_sock, client_size;
     struct sockaddr_in server_addr, client_addr;
-    char server_message[SIZE], client_message[SIZE];
+    char* server_message = (char*) malloc(SIZE*sizeof(char));
+    char* client_message = (char*) malloc(SIZE*sizeof(char));
 
     // Clean buffers:
-    memset(server_message, '\0', sizeof(server_message));
-    memset(client_message, '\0', sizeof(client_message));
+    memset(server_message, '\0', SIZE);
+    memset(client_message, '\0', SIZE);
 
     // Create socket:
     server_socket = socket(AF_INET, SOCK_STREAM, 0);
@@ -64,7 +66,7 @@ int main(void)
         }
         
         // Receive client's message:
-        if (recv(client_sock, client_message, sizeof(client_message), 0) < 0)
+        if (recv(client_sock, client_message, SIZE, 0) < 0)
         {
             printf("Couldn't receive\n");
             return -1;
@@ -72,13 +74,18 @@ int main(void)
         printf("Msg from client: %s\n", client_message);
 
         process_request(client_message);
+        json_object* jsonObject = json_object_from_file("struct.json");
 
-        json_object *jsonObject = json_object_from_file("struct.json");
+        printf("Here1\n");
+
         // Sending the string
         strcpy(server_message, json_object_to_json_string(jsonObject));
-        printf("The json file: %s\n", server_message);
+        printf("Here3\n");
 
         json_object_put(jsonObject);
+
+        printf("The json file: %s\n", server_message);
+
 
         if(strcmp(client_message, "quit\n") == 0) strcpy(server_message, "Closing Server...");
 

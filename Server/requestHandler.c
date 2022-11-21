@@ -3,29 +3,29 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "requestHandler.h"
+#include "constants.h"
 
 int players = 0;
 
-void process_request(char* request){
+void process_request(const char* request){
     write_file(request, "struct.json");
     json_object* obj = json_object_from_file("struct.json");
     json_object* r = json_object_object_get(obj, "request");
     int req = json_object_get_int(r);
     json_object_put(obj);
     handle_type_request(req);
+    
 }
 
-void write_file(char* request, char* filename){
+void write_file(const char* request, const char* filename){
     FILE* file = fopen(filename, "w");
-    fwrite(request, sizeof(char), SIZE, file);
+    fwrite(request, sizeof(char), strlen(request), file);
     fclose(file);
 }
 
 void handle_type_request(int req){
-    switch (req)
-    {
-    case -1:
-        if (players == 2)break;
+    if (req == -1){
+        if (players == 2)return;
         players++;
         char* buff = malloc(12*sizeof(char));
         sprintf(buff, "client%d.json", players);
@@ -37,27 +37,24 @@ void handle_type_request(int req){
         write_file(json_object_to_json_string(obj), "struct.json");
         json_object_put(obj);
 
-        break;
-    case 0:
+    }
+    else if (req == 0){
         // Add Observer
-        break;
-    case 1:
+    }
+    else if (req == 1){
         json_object* obj = json_object_from_file("struct.json");
-        json_object* clt1 = json_object_from_file("client1.json");
-        json_object* enemiesclt1 = json_object_object_get(clt1, "enemies");
-        json_object_object_del(obj, "enemies");
-        json_object_object_add(obj, "enemies", enemiesclt1);
         write_file(json_object_to_json_string(obj), "client1.json");
-        write_file(json_object_to_json_string(obj), "struct.json");
-        json_object_put(clt1);
         json_object_put(obj);
-        break;
-    case 2:
+
+
+        json_object* clt1 = json_object_from_file("enemies1.json");
+        write_file(json_object_to_json_string(clt1), "struct.json");
+        json_object_put(clt1);
+    }
+    else if (req == 2){
         //Player 2 consult
-        break;
-    
-    default:
+    }
+    else{
         // Upper two Observer consult
-        break;
     }
 }
