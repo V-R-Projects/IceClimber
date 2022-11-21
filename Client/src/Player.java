@@ -7,6 +7,14 @@ import java.util.Objects;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+
+/**
+
+ * Clase que se encarga de crear jugadores
+ * @author: Valesska Blanco, Ramsés Gutiérrez
+ * @version: 17/11/22/C
+ */
+
 public class Player implements GameUtils{
 
     private String spritePath;
@@ -23,7 +31,12 @@ public class Player implements GameUtils{
     private int dy;
     private boolean falling = true;
 
-
+    /**
+     * Constructor para generar un nuevo Jugador
+     * @param player nombre del nuevo jugaodor
+     * @param initialPosition lista con la posición en x y y incial
+     *                        del jugador
+     */
     public Player(String player, int[] initialPosition) {
         if (Objects.equals(player, "Popo")) {
             spritePath = "Client/src/resources/Popo.png";
@@ -37,7 +50,12 @@ public class Player implements GameUtils{
         position = initialPosition;
         loadImage(String.valueOf(path.toAbsolutePath()));
     }
+    /**
 
+     * Método que se encarga de crear un string que contiene un objeto que puede
+     * ser parseado a JSONObject
+     * @return string conteniendo la estructura de datos del jugador
+     */
     public String createJSONPlayer()
     {
         JSONObject JSONPlayer = new JSONObject();
@@ -52,6 +70,11 @@ public class Player implements GameUtils{
         this.dy = dy;
     }
 
+    /**
+
+     * Método que se encarga de cargar la imagen del jugador y obtener su largo y ancho
+     * @param path ruta de la imagen
+     */
     private void loadImage(String path) {
 
         ImageIcon ii = new ImageIcon(path);
@@ -60,6 +83,10 @@ public class Player implements GameUtils{
         width = image.getWidth(null);
         height = image.getHeight(null);
     }
+    /**
+
+     * Método que se encarga de cambiar la posición del jugador
+     */
     public void move()
     {
         if (getX() <= 0) addX(5);
@@ -81,7 +108,11 @@ public class Player implements GameUtils{
         dy += fallSpeed;
     }
 
+    /**
 
+     * Método que se encarga de detectar los eventos de teclado
+     * @param e evento de teclado
+     */
     public void keyPressed(KeyEvent e) {
 
         int key = e.getKeyCode();
@@ -114,6 +145,11 @@ public class Player implements GameUtils{
             }
         }
     }
+    /**
+
+     * Método que se encarga de detectar los eventos de teclado
+     * @param e evento de teclado
+     */
     public void keyReleased(KeyEvent e) {
 
         int key = e.getKeyCode();
@@ -186,7 +222,11 @@ public class Player implements GameUtils{
     public void setFalling(boolean falling) {
         this.falling = falling;
     }
+    /**
 
+     * Método que se encarga de detectar los eventos de teclado
+     * @return un objeto tipo Rectangle con los límites del jugador
+     */
     public Rectangle getBounds() {
         return new Rectangle(getX(), getY(), width, height);
     }

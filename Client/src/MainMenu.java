@@ -9,10 +9,23 @@ import javax.imageio.ImageIO;
 
 import javax.swing.*;
 
+/**
+
+ * Clase que se encarga de crear el menú principal
+ * @author: Valesska Blanco, Ramsés Gutiérrez
+ * @version: 16/11/22/B
+ */
 
 public class MainMenu extends JFrame implements GameUtils {
 
     private JPanel contentPane;
+    /**
+
+     * Clase que se encarga de un JPanel para Menu Principal
+     * con el fin de poder dibujar imágenes
+     * @author: Valesska Blanco, Ramsés Gutiérrez
+     * @version: 16/11/22/B
+     */
     private class content extends JPanel{
         private BufferedImage iceClimber;
         public content(){
@@ -30,6 +43,10 @@ public class MainMenu extends JFrame implements GameUtils {
             g.drawImage(iceClimber, 300, 50, this);
         }
     }
+    /**
+     * Constructor para generar un nuevo Frame de tipo MainMenu
+     * @param p_client instancia del cliente
+     */
     public MainMenu(Client p_client)
     {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,7 +63,13 @@ public class MainMenu extends JFrame implements GameUtils {
         paintButtons(p_client);
         contentPane.repaint();
     }
+    /**
 
+     * Método que se encarga de abrir el gameFrame dependiendo de la cantidad de jugadores
+     * @param p_client instancia del cliente
+     * @param players cantidad de jugadores conectados
+
+     */
     public void openGame(Client p_client, int players)
     {
         this.setVisible(false);
@@ -57,6 +80,12 @@ public class MainMenu extends JFrame implements GameUtils {
         });
 
     }
+    /**
+
+     * Método que se encarga de dibujar los botones del menú principal
+     * @param p_client instancia del cliente
+
+     */
     public void paintButtons(Client p_client)
     {
         JButton play1Button = new JButton("1 PLAYER");
