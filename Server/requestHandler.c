@@ -62,7 +62,14 @@ void handle_type_request(int req){
         json_object_put(clt1);
     }
     else if (req == 2){
-        //Player 2 consult
+        json_object* obj = json_object_from_file("struct.json");
+        write_file(json_object_to_json_string(obj), "client2.json");
+        json_object_put(obj);
+
+
+        json_object* clt1 = json_object_from_file("enemies2.json");
+        write_file(json_object_to_json_string(clt1), "struct.json");
+        json_object_put(clt1);
     }
     else{
         // Upper two Observer consult
