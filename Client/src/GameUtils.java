@@ -9,6 +9,7 @@ public interface GameUtils {
     int FONT_SIZE = 12;
     int BUTTON_WIDTH = 200;
     int BUTTON_HEIGHT = 50;
-    int PORT = 43007;
+    int PORT = 43014;
+    String IP = "192.168.0.28";
 
 }

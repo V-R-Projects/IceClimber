@@ -28,17 +28,16 @@ public class Client implements GameUtils{
         clientSocket.close();
     }
 
-    public JSONObject sendRequest(String message)
+    public String sendRequest(String message)
     {
         try{
             startConnection("127.0.0.1", PORT);
             String response = sendMessage(message);
-            JSONresponse = JsonDecompiler.convertToJSON(response);
             stopConnection();
         }
         catch (Exception e) {
             System.out.println("Error connecting to server");
         }
-        return JSONresponse;
+        return respose;
     }
 }

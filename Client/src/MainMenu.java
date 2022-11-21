@@ -1,6 +1,11 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.nio.file.Paths;
+
+import javax.imageio.ImageIO;
 
 import javax.swing.*;
 
@@ -8,13 +13,31 @@ import javax.swing.*;
 public class MainMenu extends JFrame implements GameUtils {
 
     private JPanel contentPane;
-
+    private class content extends JPanel{
+        private BufferedImage iceClimber;
+        public content(){
+            try
+            {
+                iceClimber = ImageIO.read(new File(String.valueOf(Paths.get("Client/src/resources/logo.png").toAbsolutePath())));
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Error reading the image");
+            }
+        }
+        @Override
+        public void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.drawImage(iceClimber, 300, 50, this);
+        }
+    }
     public MainMenu(Client p_client)
     {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(FRAME_WIDTH, FRAME_HEIGHT);
         setTitle(TITLE);
         setVisible(true);
+
+
         contentPane = new JPanel();
         setContentPane(contentPane);
         contentPane.setLayout(null);
@@ -28,11 +51,12 @@ public class MainMenu extends JFrame implements GameUtils {
     {
         this.setVisible(false);
         this.dispose();
-        GameFrame gameFrame = new GameFrame(p_client);
-        gameFrame.setVisible(true);
+        EventQueue.invokeLater(() -> {
+            GameFrame gameFrame = new GameFrame(p_client,players);
+            gameFrame.setVisible(true);
+        });
 
     }
-
     public void paintButtons(Client p_client)
     {
         JButton play1Button = new JButton("1 PLAYER");

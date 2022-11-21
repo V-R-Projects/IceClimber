@@ -81,10 +81,6 @@ int main(void)
 
         strcpy(server_message, json_object_to_json_string(jsonObject));
 
-        json_object_put(jsonObject);
-
-        printf("The json file: %s\n", server_message);
-
 
         if(strcmp(client_message, "quit\n") == 0) strcpy(server_message, "Closing Server...");
 
@@ -99,7 +95,7 @@ int main(void)
         shutdown(client_sock, 2);
         
         if(strcmp(client_message, "quit\n") == 0) break;
-        
+
         // Clean buffers:
         memset(server_message, '\0', sizeof(server_message));
         memset(client_message, '\0', sizeof(client_message));
