@@ -73,14 +73,13 @@ int main(void)
         }
         printf("Msg from client: %s\n", client_message);
 
+        // Procesing client_message
         process_request(client_message);
-        json_object* jsonObject = json_object_from_file("struct.json");
-
-        printf("Here1\n");
 
         // Sending the string
+        json_object* jsonObject = json_object_from_file("struct.json");
+
         strcpy(server_message, json_object_to_json_string(jsonObject));
-        printf("Here3\n");
 
         json_object_put(jsonObject);
 

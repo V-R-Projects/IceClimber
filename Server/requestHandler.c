@@ -6,7 +6,10 @@
 #include "constants.h"
 
 int players = 0;
-
+/*
+function hat gets the request from json and calls
+handle_type_request
+*/
 void process_request(const char* request){
     write_file(request, "struct.json");
     json_object* obj = json_object_from_file("struct.json");
@@ -17,12 +20,19 @@ void process_request(const char* request){
     
 }
 
+/*
+Function that writes request to filename
+*/
 void write_file(const char* request, const char* filename){
     FILE* file = fopen(filename, "w");
     fwrite(request, sizeof(char), strlen(request), file);
     fclose(file);
 }
 
+/*
+Function that handles the jsons dependig the request
+of the client.
+*/
 void handle_type_request(int req){
     if (req == -1){
         if (players == 2)return;
